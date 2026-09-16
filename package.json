@@ -1,0 +1,15 @@
+{
+  "name": "student-service",
+  "version": "1.0.0",
+  "description": "Student web service",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/server.js"
+  },
+  "keywords": [],
+  "author": "Tjeker",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
