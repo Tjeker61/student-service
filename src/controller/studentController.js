@@ -5,6 +5,7 @@ export const addStudent = async (req, res) => {
     if (success) {
         return res.status(204).send();
     } else {
+        console.log("student already exists")
         return res.status(409).send()
     }
 };

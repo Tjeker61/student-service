@@ -1,9 +1,17 @@
+import * as repo from '../repository/studentRepository.js';
+
 export const addStudent = async (student) => {
-    //TODO implement addStudent, return true if success and false if not
+return repo.createStudent(student);
 }
 
 export const findStudent = async id => {
-    //TODO implement findStudent
+    let student = repo.findStudent(+id);
+    if (student) {
+        student = {...student};
+        delete student.password;
+
+    }
+    return student;
 }
 
 export const removeStudent = async id => {
