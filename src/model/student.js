@@ -11,7 +11,14 @@ const studentSchema = new Schema({
         default: {}
     }
 }, {
-    versionKey: false
+    versionKey: false,
+    toJSON: {
+        transform: (doc, ret) => {
+            ret.id = doc._id;
+            delete ret._id;
+            return ret;
+        }
+    }
 });
 
 const Student = model("Student", studentSchema, 'college');
