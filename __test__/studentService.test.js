@@ -63,11 +63,12 @@ describe('Student Service', () => {
     })
     it('findStudent returns student when student exists', async () => {
         // Arrange
-        mockRepo.findStudentById.mockResolvedValue({_id: 5, name: 'John'})
+        const student = {_id: 5, name: 'John'}
+        mockRepo.findStudentById.mockResolvedValue(student)
         // Act
         const result = await studentService.findStudent('5')
         // Assert
-        expect(result).toBeTruthy()
+        expect(result).toBe(student)
         expect(mockRepo.findStudentById).toHaveBeenCalledWith(5)
     })
     it('findStudent returns null when student is not exists', async () => {
@@ -76,16 +77,17 @@ describe('Student Service', () => {
         // Act
         const result = await studentService.findStudent('5')
         // Assert
-        expect(result).toBeFalsy()
+        expect(result).toBeNull()
         expect(mockRepo.findStudentById).toHaveBeenCalledWith(5)
     })
     it('deleteStudent returns deleted student when student exists', async () => {
         // Arrange
-        mockRepo.deleteStudent.mockResolvedValue({_id: 5, name: 'John'})
+        const student = {_id: 5, name: 'John'}
+        mockRepo.deleteStudent.mockResolvedValue(student)
         // Act
         const result = await studentService.deleteStudent('5')
         // Assert
-        expect(result).toBeTruthy()
+        expect(result).toBe(student)
         expect(mockRepo.deleteStudent).toHaveBeenCalledWith(5)
     })
     it('deleteStudent returns null when student is not exists', async () => {
@@ -94,16 +96,17 @@ describe('Student Service', () => {
         // Act
         const result = await studentService.deleteStudent('5')
         // Assert
-        expect(result).toBeFalsy()
+        expect(result).toBeNull()
         expect(mockRepo.deleteStudent).toHaveBeenCalledWith(5)
     })
     it('updateStudent returns updated student when student exists', async () => {
         // Arrange
-        mockRepo.updateStudent.mockResolvedValue({_id: 5, name: 'Mary'})
+        const updated = {_id: 5, name: 'Mary'}
+        mockRepo.updateStudent.mockResolvedValue(updated)
         // Act
         const result = await studentService.updateStudent('5', {name: 'Mary'})
         // Assert
-        expect(result).toBeTruthy()
+        expect(result).toBe(updated)
         expect(mockRepo.updateStudent).toHaveBeenCalledWith(5, {name: 'Mary'})
     })
     it('updateStudent returns null when student is not exists', async () => {
@@ -112,16 +115,17 @@ describe('Student Service', () => {
         // Act
         const result = await studentService.updateStudent('5', {name: 'Mary'})
         // Assert
-        expect(result).toBeFalsy()
+        expect(result).toBeNull()
         expect(mockRepo.updateStudent).toHaveBeenCalledWith(5, {name: 'Mary'})
     })
     it('addScore returns updated student when student exists', async () => {
         // Arrange
-        mockRepo.updateStudent.mockResolvedValue({_id: 5, name: 'John'})
+        const updated = {_id: 5, name: 'John', scores: {math: 90}}
+        mockRepo.updateStudent.mockResolvedValue(updated)
         // Act
         const result = await studentService.addScore('5', 'math', 90)
         // Assert
-        expect(result).toBeTruthy()
+        expect(result).toBe(updated)
         expect(mockRepo.updateStudent).toHaveBeenCalledWith(5, {'scores.math': 90})
     })
     it('addScore returns null when student is not exists', async () => {
@@ -130,16 +134,17 @@ describe('Student Service', () => {
         // Act
         const result = await studentService.addScore('5', 'math', 90)
         // Assert
-        expect(result).toBeFalsy()
+        expect(result).toBeNull()
         expect(mockRepo.updateStudent).toHaveBeenCalledWith(5, {'scores.math': 90})
     })
     it('findStudentsByName returns students when name is found', async () => {
         // Arrange
-        mockRepo.findStudentsByName.mockResolvedValue([{_id: 5, name: 'John'}])
+        const students = [{_id: 5, name: 'John'}]
+        mockRepo.findStudentsByName.mockResolvedValue(students)
         // Act
         const result = await studentService.findStudentsByName('John')
         // Assert
-        expect(result).toHaveLength(1)
+        expect(result).toBe(students)
         expect(mockRepo.findStudentsByName).toHaveBeenCalledWith('John')
     })
     it('findStudentsByName returns empty array when name is not found', async () => {
@@ -157,7 +162,7 @@ describe('Student Service', () => {
         // Act
         const result = await studentService.countStudentsByNames(['John', 'Jane'])
         // Assert
-        expect(result).toBeTruthy()
+        expect(result).toBe(2)
         expect(mockRepo.countStudentsByNames).toHaveBeenCalledWith(['John', 'Jane'])
     })
     it('countStudentsByNames returns 0 and wraps single name into array when name is not found', async () => {
@@ -166,16 +171,17 @@ describe('Student Service', () => {
         // Act
         const result = await studentService.countStudentsByNames('Ghost')
         // Assert
-        expect(result).toBeFalsy()
+        expect(result).toBe(0)
         expect(mockRepo.countStudentsByNames).toHaveBeenCalledWith(['Ghost'])
     })
     it('findStudentsByMinScore returns students when scores are found', async () => {
         // Arrange
-        mockRepo.findStudentsByMinScore.mockResolvedValue([{_id: 5, name: 'John'}])
+        const students = [{_id: 5, name: 'John'}]
+        mockRepo.findStudentsByMinScore.mockResolvedValue(students)
         // Act
         const result = await studentService.findStudentsByMinScore('math', '80')
         // Assert
-        expect(result).toHaveLength(1)
+        expect(result).toBe(students)
         expect(mockRepo.findStudentsByMinScore).toHaveBeenCalledWith('math', 80)
     })
     it('findStudentsByMinScore returns empty array when scores are not found', async () => {
